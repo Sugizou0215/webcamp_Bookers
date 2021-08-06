@@ -1,0 +1,12 @@
+<h2>Books</h2>
+
+<% #新規投稿部分 %>
+<h3>New Book</h3>
+<%= form_with model:@book, local:true do |f| %>
+  <p>Title</p>
+  <%= f.text_field :title %>
+  <p>Body</p>
+  <%= f.text_area :body %>
+
+  <%= f.submit 'Create Book' %>
+<% end %>
