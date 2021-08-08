@@ -1,7 +1,26 @@
 <h2>Books</h2>
 
+<% #一覧部分 %>
+<p>Title   body</p>
+<% @books.each_with_index do |book, i| %>
+
+  <span><%= book.title %></span>
+  <span><%= book.body %></span>
+  <%= link_to "Show", book_path(i+1) %>
+  <%= link_to "Edit", edit_book_path(i+1) %>
+  <%= link_to "Destroy", book_path(i+1), method: :delete %>
+
+<% end %>
+
 <% #新規投稿部分 %>
 <h3>New Book</h3>
+<% #エラーメッセージ %>
+<% if @book.errors.any? %>
+  <% @book.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
 <%= form_with model:@book, local:true do |f| %>
   <p>Title</p>
   <%= f.text_field :title %>
@@ -9,4 +28,6 @@
   <%= f.text_area :body %>
 
   <%= f.submit 'Create Book' %>
+
+
 <% end %>
