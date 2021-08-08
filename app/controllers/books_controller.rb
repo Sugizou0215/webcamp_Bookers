@@ -17,22 +17,28 @@ class BooksController < ApplicationController
   end
 
   def create
-
     @book = Book.new(book_params)
     #title,bodyに入力がある場合
     if @book.save
-      redirect_to book_path(@book.id)
+      redirect_to book_path(@book.id), notice: 'Book was successfully created.'
     #title,bodyに入力がない場合
     else
       @books = Book.all #一覧を表示させるためbooksにすべてのカラムを代入
-      @book = Book.find(params[:id])
       render :index
     end
-
   end
 
   def edit
     @book = Book.find(params[:id])
+  end
+
+  def update
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
+      redirect_to book_path(@book.id), notice: 'Book was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
